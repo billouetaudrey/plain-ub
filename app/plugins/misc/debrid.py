@@ -67,7 +67,7 @@ def format_data(unrestricted_data: dict) -> str:
         data = unrestricted_data["data"]
 
     name = data.get("filename") or data.get("name", "")
-    url = os.path.join(INDEX, quote(name.strip("/")))
+    url = os.path.join(INDEX, quote(name.strip("")))
     href_name = f"<a href='{url}'>{name}</a>"
     id = data.get("id")
     size = bytes_to_mb(data.get("size") or data.get("filesize", 0))
@@ -108,7 +108,7 @@ async def torrents(bot: BOT, message: Message):
     for data in torrent_list[0:limit]:
         status = data.get("status")
         name = data.get("filename")
-        url = os.path.join(INDEX, quote(name.strip("/")))
+        url = os.path.join(INDEX, quote(name.strip("")))
         href_name = f"<a href='{url}'>{name}</a>"
         id = data.get("id")
         downloaded = ""
