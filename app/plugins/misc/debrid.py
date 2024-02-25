@@ -29,7 +29,7 @@ async def get_json(endpoint: str, query: dict) -> dict | str:
 # Unlock Links or magnets
 @bot.add_cmd("unrestrict")
 async def debrid(bot: BOT, message: Message):
-    if not message.flt_input:
+    if not message. filtered_input:
         await message.reply("Give a magnet or link to unrestrict.")
         return
     for data in message.text_list[1:]:
@@ -88,8 +88,8 @@ async def torrents(bot: BOT, message: Message):
     endpoint = "magnet/status"
     query = {}
 
-    if "-l" not in message.flags and message.flt_input:
-        query = {"id": message.flt_input}
+    if "-l" not in message.flags and message. filtered_input:
+        query = {"id": message. filtered_input}
 
     torrent_data = await get_json(endpoint=endpoint, query=query)
 
@@ -103,7 +103,7 @@ async def torrents(bot: BOT, message: Message):
         torrent_list = [torrent_list]
 
     ret_str = ""
-    limit = int(message.flt_input) if "-l" in message.flags else 1
+    limit = int(message. filtered_input) if "-l" in message.flags else 1
 
     for data in torrent_list[0:limit]:
         status = data.get("status")
@@ -147,7 +147,7 @@ def parse_debrid_links(data: dict) -> str:
 @bot.add_cmd("del_t")
 async def delete_torrent(bot: BOT, message: Message):
     endpoint = "magnet/delete"
-    if not message.flt_input:
+    if not message. filtered_input:
         await message.reply("Enter an ID to delete")
         return
     for id in message.text_list[1:]:
